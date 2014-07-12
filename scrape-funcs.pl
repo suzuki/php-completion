@@ -1,17 +1,22 @@
 use strict;
 use warnings;
+use utf8;
 
 use List::MoreUtils qw(uniq);
 use Web::Scraper;
 use URI;
 
 my $functions = scraper {
-    process "div#content div.index a.function", 'functions[]' => sub {
+    process "a.index", 'functions[]' => sub {
         my $text = $_->as_text or return;
+	if ($text =~ /[^A-Za-z0-9_:\-\/\\]/) {
+	    return;
+	}
+
         return $text;
     };
     result 'functions';
-}->scrape(URI->new('http://jp.php.net/manual/ja/indexes.php'));
+}->scrape(URI->new('http://jp.php.net/manual/ja/indexes.functions.php'));
 
 map {
     s/\(\)$//;
@@ -19,6 +24,4 @@ map {
     s/.*::(.*)$/$1/;
 } @$functions;
 
-print join "\n", uniq @$functions;
-
-
+print join "\n", uniq sort @$functions;
