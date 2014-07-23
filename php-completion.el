@@ -1927,7 +1927,7 @@ If file is not found, return nil"
    "next" "or" "require" "require_once" "return" "static" "switch"
    "then" "var" "while" "xor" "private" "throw" "catch" "try"
    "instanceof" "catch all" "finally"
-   "yield"
+   "yield" "trait"
 
    ;; merged from autocompletion-php.el
    "die" "use" "new" "list" "eval" "this" "goto" "case" "isset" "empty" "final" "const" "clone" "class" "array" "public" "__DIR__" "default" "__FILE__" "function" "abstract" "__CLASS__" "protected" "namespace" "interface" "cfunction" "__METHOD__" "implements" "enddeclare" "__FUNCTION__" "old_function" "__NAMESPACE__"
