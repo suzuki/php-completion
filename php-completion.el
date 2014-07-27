@@ -954,7 +954,7 @@ If file is not found, return nil"
 ;;       (insert (lambda (s) (insert (format "%S" s) "\n"))))
 ;;   (mapcar insert (split-string s "\n")))
 
-(defconst phpcmp-functions-file "php-index-of-functions"
+(defconst phpcmp-php-functions-file "phpcmp-index-of-php-functions"
   "Filename of PHP functions index")
 
 (defun phpcmp-get-index-list-from-file(file)
@@ -967,7 +967,7 @@ If file is not found, return nil"
 
 (phpcmp-db-update
  'functions
- (phpcmp-get-index-list-from-file phpcmp-functions-file))
+ (phpcmp-get-index-list-from-file phpcmp-php-functions-file))
 
 (phpcmp-db-update
  'ini-directives
