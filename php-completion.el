@@ -449,7 +449,11 @@ see `phpcmp-search-url'"
                  ("global tags" (lambda ()
                                   (phpcmp-global-get-tags)))
                  ("global symbols" (lambda ()
-                                     (phpcmp-global-get-symbols)))))
+                                     (phpcmp-global-get-symbols)))
+		 ("phpunit assertions" (lambda ()
+					 (phpcmp-db-get 'phpunit-assertions)))
+		 ("phpunit methods" (lambda ()
+				      (phpcmp-db-get 'phpunit-methods)))))
          (table (append table phpcmp-etags-completions-table)))
     (run-hooks 'phpcmp--initialize-hook)
     (phpcmp-smart-sort table)))
@@ -956,6 +960,9 @@ If file is not found, return nil"
 
 (defconst phpcmp-php-functions-file "phpcmp-index-of-php-functions"
   "Filename of PHP functions index")
+
+(defconst phpcmp-phpunit-assertion-file "phpcmp-index-of-phpunit-assertions"
+  "Filename of PHPUnit assertion index")
 
 (defun phpcmp-get-index-list-from-file(file)
   (with-temp-buffer
@@ -1944,6 +1951,16 @@ If file is not found, return nil"
    "int" "integer" "long" "mixed" "object" "real"
    "string"))
 
+(phpcmp-db-update
+ 'phpunit-assertions
+ (phpcmp-get-index-list-from-file phpcmp-phpunit-assertion-file))
+
+(phpcmp-db-update
+ 'phpunit-methods
+ '(
+   "markTestIncomplete"
+   "markTestSkipped"
+   ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Mode ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
